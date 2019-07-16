@@ -1,8 +1,17 @@
-import Vue from 'vue'
-import App from './App.vue'
+import app from './app'
 
-Vue.config.productionTip = false
+const routes = [
+  {
+    path: '/',
+    children: [
+      {
+        path: 'jw-frame',
+        component: {
+          template: `<h1> 应用页面 </h1>`
+        }
+      }
+    ]
+  }
+]
 
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
+app.init('#app', routes)

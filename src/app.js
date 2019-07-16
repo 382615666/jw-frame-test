@@ -1,0 +1,39 @@
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import Element from 'element-ui'
+
+import VueComponents from '@jw/vue-components-v2'
+
+import 'element-ui/lib/theme-chalk/index.css';
+
+import root from './routes'
+
+import App from './App.vue'
+
+Vue.config.productionTip = false
+
+Vue.use(Element)
+Vue.use(VueRouter)
+Vue.use(VueComponents)
+
+export default {
+  init (el = '#app', routes = [], options = {}) {
+    const index = routes.findIndex (item => item.path === '/')
+    // 寻找 /  路径
+    if (~index) {
+      routes[index] = Object.assign({}, routes[index], root[0])
+    } else {
+      routes.push(root)
+    }
+    const router = new VueRouter({
+      routes
+    })
+    options = Object.assign({
+      ...options
+    }, {
+      router,
+      render: h => h(App)
+    })
+    new Vue(options).$mount(el)
+  }
+}
