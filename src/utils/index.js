@@ -23,10 +23,9 @@ export default {
     }
   },
   mergeRoute(source = [], target = []) {
-    let result = []
     let stack = {}
     source.forEach(item => stack[item.path] = item)
-    target.forEach(item => {
+    let result = target.map(item => {
       if (item.path in stack) {
         let temp = {...stack[item.path], ...item}
         const sourceChildren = stack[item.path].children
@@ -34,11 +33,10 @@ export default {
         if (sourceChildren && sourceChildren.length && targetChildren && targetChildren.length) {
           temp.children = this.mergeRoute(sourceChildren, targetChildren)
         }
-        result.push(temp)
         delete stack[item.path]
-      } else {
-        result.push(item)
+        return temp
       }
+      return item
     })
     for (let key in stack) {
       result.push(stack[key])
