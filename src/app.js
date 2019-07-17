@@ -34,6 +34,7 @@ export default {
       router,
       render: h => h(App)
     })
-    new Vue(options).$mount(el)
+    window.jw = window.jw || {}
+    window.jw.app = new Vue(options).$mount(el)
   }
 }
