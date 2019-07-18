@@ -68,9 +68,7 @@ export default {
         component: item.component,
         path: `${parentPath}/${item.path}`.replace(/\/\//g, '/')
       }
-      if (item.children && item.children.length) {
-        temp.children = this.formatRoute(item.children, temp.path)
-      }
+      temp.children = this.formatRoute(item.children, temp.path)
       return temp
     })
   }

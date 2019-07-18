@@ -11,39 +11,7 @@
       data () {
         return {
           currentMenuPath: '/jw-frame',
-          menus: [{
-            id: '0ebb95b7-8f13-4ef8-ba2f-01dd4a6994dc',
-            title: '系统管理',
-            icon: 'fa fa-qrcode',
-            path: '/jw-frame',
-            component: {
-              template: `<h1> 应用页面 </h1>`
-            },
-            children: []
-          }, {
-            id: '1c516407-4a29-404a-8835-c9d72d939095',
-            title: '客户管理',
-            icon: 'fa fa-rss-square',
-            path: '/customer',
-            children: [{
-              id: '1c516407-4a29-404a-8835-c9d72d939095',
-              title: '客户资料',
-              icon: 'fa fa-rss-square',
-              path: '/customer/customer',
-              component: {
-                template: `<h1> 应用页面 </h1>`
-              }
-            },
-              {
-                id: '1c516407-4a29-404a-8835-c9d72d939095',
-                title: '联系人资料',
-                icon: 'fa fa-rss-square',
-                path: '/customer/contact',
-                component: {
-                  template: `<h1> 应用页面 </h1>`
-                }
-              }]
-          }]
+          menus: []
         }
       },
       methods: {
@@ -91,10 +59,10 @@
                 window.jw.app.$router.addRoutes(item)
               })
               // window.jw.routes 此处的数据格式为 [file1路由 = [], file2路由 = [] ...]
-              const routes = utils.mergeArrayRoute([window.jw.app.$router.options.routes, ...window.jw.routes])
-              console.log(utils.formatRoute(routes))
-              this.menus = utils.formatRoute(routes)
-              console.log(this.menus)
+              const routes = utils.mergeArrayRoute([...window.jw.routes, window.jw.app.$router.options.routes])
+              console.log(utils.formatRoute(routes[0].children))
+              this.menus = utils.formatRoute(routes[0].children)
+              // console.log(this.menus)
             }, 300)
           }).catch((e) => {
             window.console.error('js文件加载失败，请确认js文件是否存在！')
