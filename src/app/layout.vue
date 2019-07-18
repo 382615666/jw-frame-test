@@ -6,6 +6,7 @@
     </jw-frame>
 </template>
 <script>
+    import myroutes from '@/routes'
     import utils from '@/utils/index'
     export default {
       data () {
@@ -55,14 +56,18 @@
           })
           Promise.all(promises).then(() => {
             setTimeout(() => {
+              console.log(myroutes)
               window.jw.routes.forEach(item => {
-                window.jw.app.$router.addRoutes(item)
+                myroutes[0].children = myroutes[0].children || []
+                myroutes[0].children.push(item)
               })
+              window.jw.app.$router.addRoutes(myroutes)
               // window.jw.routes 此处的数据格式为 [file1路由 = [], file2路由 = [] ...]
-              const routes = utils.mergeArrayRoute([...window.jw.routes, window.jw.app.$router.options.routes])
-              console.log(utils.formatRoute(routes[0].children))
-              this.menus = utils.formatRoute(routes[0].children)
-              // console.log(this.menus)
+              // const routes = utils.mergeArrayRoute([window.jw.app.$router.options.routes, ...window.jw.routes])
+              // this.menus = utils.formatRoute(routes[0].children)
+              // const routes = utils.mergeArrayRoute([window.jw.app.$router.options.routes[0].children, ...window.jw.routes])
+              // this.menus = utils.formatRoute(routes)
+              // console.log(utils.formatRoute(routes))
             }, 300)
           }).catch((e) => {
             window.console.error('js文件加载失败，请确认js文件是否存在！')

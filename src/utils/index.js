@@ -60,16 +60,20 @@ export default {
     }
     return array[0]
   },
-  formatRoute(array = [], parentPath = '') {
-    return array.map(item => {
-      const meta = item.meta || {}
-      let temp = {
-        ...meta,
-        component: item.component,
-        path: `${parentPath}/${item.path}`.replace(/\/\//g, '/')
+  formatRoute(array = [], parentPath = '', permission = () => true) {
+    let result = []
+    array.forEach(item => {
+      if (permission(item.id)) {
+        const meta = item.meta || {}
+        let temp = {
+          ...meta,
+          component: item.component,
+          path: `${parentPath}/${item.path}`.replace(/\/\//g, '/')
+        }
+        temp.children = this.formatRoute(item.children, temp.path)
+        result.push(temp)
       }
-      temp.children = this.formatRoute(item.children, temp.path)
-      return temp
     })
+    return result
   }
 }
