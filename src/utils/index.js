@@ -47,14 +47,24 @@ export default {
     let i = 0
     let result = []
     while (array.length > 1) {
-      if (i === array.length - 1) {
-        array.push([])
-      }
+      // if (i === array.length - 1) {
+      //   array.push([])
+      // }
+      // result[i / 2] = this.mergeRoute(array[i], array[i + 1])
+      // i += 2
+      // if (i >= array.length) {
+      //   array = result
+      //   i = 0
+      //   result = []
+      // }
       result[i / 2] = this.mergeRoute(array[i], array[i + 1])
       i += 2
-      if (i >= array.length) {
-        array = result
+      if (i === array.length - 1) {
+        result.push(array.pop())
+      }
+      if (i >= array.length - 1) {
         i = 0
+        array = result
         result = []
       }
     }
