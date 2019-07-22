@@ -58,7 +58,7 @@
             window.jw.app.$router.addRoutes(routes)
             // window.jw.routes 此处的数据格式为 [file1路由 = [], file2路由 = [] ...]
             this.menus = utils.formatRoute(utils.mergeArrayRoute([window.jw.app.$router.options.routes[0].children, ...window.jw.routes]))
-            this.currentMenuPath = this.$route.path
+            this.currentMenuPath = this.$route.fullPath
           }, 200)
           }).catch(e => {
           window.console.error(e)
