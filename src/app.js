@@ -9,6 +9,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import root from './routes'
 
 import App from './App.vue'
+import utils from '@/utils'
 
 Vue.config.productionTip = false
 
@@ -21,7 +22,7 @@ export default {
     const index = routes.findIndex (item => item.path === '/')
     // 寻找 /  路径
     if (~index) {
-      routes[index] = Object.assign({}, routes[index], root[0])
+      routes = utils.mergeRoute(routes, root)
     } else {
       routes.push(root)
     }
